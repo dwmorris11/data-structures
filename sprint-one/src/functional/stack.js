@@ -7,12 +7,13 @@ var Stack = function() {
 
   // Implement the methods below
   someInstance.push = function(value) {
-    storage[String(someInstance.storageSize + 1)] = value;
     someInstance.storageSize++;
+    storage[String(someInstance.storageSize-1)] = value;
+
   };
 
   someInstance.pop = function() {
-    var key = String(someInstance.storageSize);
+    var key = String(someInstance.storageSize-1);
     if (storage.hasOwnProperty(key)) {
       var poppedValue = storage[key];
       delete storage[key];
@@ -27,3 +28,4 @@ var Stack = function() {
 
   return someInstance;
 };
+
