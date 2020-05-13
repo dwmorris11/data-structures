@@ -9,9 +9,14 @@ var Stack = function() {
   };
 
   someInstance.pop = function() {
+    var key = String(storage.length-1);
+    var poppedValue = storage[key];
+    delete storage[key];
+    return poppedValue;
   };
 
   someInstance.size = function() {
+    return storage.length;
   };
 
   return someInstance;
