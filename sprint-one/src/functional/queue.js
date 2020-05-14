@@ -13,7 +13,7 @@ var Queue = function() {
   };
 
   someInstance.dequeue = function() {
-    if(storage['0'] === undefined){return;}
+    if (storage['0'] === undefined) { return; }
     var dequeuedValue = storage['0'];
     delete storage['0'];
     var storageClone = _.clone(storage);

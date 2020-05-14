@@ -1,16 +1,27 @@
 var Stack = function() {
   var someInstance = {};
   someInstance.storageSize = 0;
-  _.extend(someInstance, someInstance.storageSize, Stack.stackMethods);
+  someInstance.storage = {};
+  _.extend(someInstance, stackMethods);
 
   return someInstance;
 };
+stackMethods = {};
 
-Stack.stackMethods = {};
-
-Stack.stackMethods.push = function (value) {/**/};
-Stack.stackMethods.pop = function (value) {/* */};
-Stack.stackMethods.size = function () {
+stackMethods.push = function (value) {
+  this.storageSize++;
+  this.storage[this.storageSize-1] = value;
+};
+stackMethods.pop = function (value) {
+  var key = String(this.storageSize-1);
+  if(this['storage'].hasOwnProperty(key)) {
+    var poppedValue = this.storage[key];
+    delete this.storage[key];
+    this.storageSize--;
+  }
+  return poppedValue;
+};
+stackMethods.size = function () {
   return this.storageSize;
 };
 
