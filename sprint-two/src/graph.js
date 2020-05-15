@@ -27,6 +27,9 @@ Graph.prototype.removeNode = function(node) {
     // look at index 0 of each sub-array and compare it to node
     if (this.nodes[i][0] === node) {
       // Remove the node
+      for(var j=1; j < this.nodes[i].length; j++){
+        this.removeEdge(this.nodes[i][0], this.nodes[i][j]);
+      }
       this.nodes.splice(i, 1);
     }
   }
@@ -64,10 +67,26 @@ Graph.prototype.addEdge = function(fromNode, toNode) {
 
 // Remove an edge between any two specified (by value) nodes.
 Graph.prototype.removeEdge = function(fromNode, toNode) {
+  // Iterate over the nodes, look for fromNode
+  for (var i = 0; i < this.nodes.length; i++) {
+    if (fromNode === this.nodes[i][0]) {
+      var toNodeIndex = this.nodes[i].indexOf(toNode);
+      this.nodes[i].splice(toNodeIndex, 1);
+    }
+  }
+  for (var i = 0; i < this.nodes.length; i++) {
+    if (toNode === this.nodes[i][0]) {
+      var fromNodeIndex = this.nodes[i].indexOf(fromNode);
+      this.nodes[i].splice(fromNodeIndex, 1);
+    }
+  }
 };
 
 // Pass in a callback which will be executed on each node of the graph.
 Graph.prototype.forEachNode = function(cb) {
+  _.each(this.nodes, function(item) {
+    cb(item[0]);
+  });
 };
 
 /*
