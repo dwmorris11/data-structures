@@ -23,6 +23,7 @@ var LinkedList = function() {
   list.removeHead = function() {
     var oldHeadValue = list.head.value;
     list.head = list.head.next;
+    list.size--;
     return oldHeadValue;
   };
 
@@ -30,17 +31,17 @@ var LinkedList = function() {
     var currentNode = list.head;
     var onceMore = true;
     do {
+      if (currentNode.next === null) {
+        onceMore = false;
+      }
       if (currentNode.value === target) {
         return true;
       }
       currentNode = currentNode.next;
-      if (currentNode.next === null) {
-        onceMore = false;
-      }
     }
-    while (currentNode.next !== null && onceMore);
+    while (currentNode !== null || onceMore);
+    return false;
   };
-
   return list;
 };
 
