@@ -1,6 +1,5 @@
 var BinarySearchTree = function (val) {
   this.value = val;
-  // this.storage = {};
   this.left = undefined;
   this.right = undefined;
 };
@@ -57,18 +56,18 @@ BinarySearchTree.prototype.contains = function (value) {
 };
 
 BinarySearchTree.prototype.depthFirstLog = function(func) {
-  var outputArray = [];
-  var innerFunction = function(node) {
-    outputArray.push(node);
+  var nodesList = [];
+  var collectNodes = function(node) {
+    nodesList.push(node);
     if (node.left !== undefined) {
-      innerFunction(node.left);
+      collectNodes(node.left);
     }
     if (node.right !== undefined) {
-      innerFunction(node.right);
+      collectNodes(node.right);
     }
   };
-  innerFunction(this);
-  _.each(outputArray, function(node) {
+  collectNodes(this);
+  _.each(nodesList, function(node) {
     func(node.value);
   });
 };
