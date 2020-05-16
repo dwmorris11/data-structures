@@ -4,12 +4,12 @@ var HashTable = function() {
   this._limit = 8;
   this._storage = LimitedArray(this._limit);
   this._size = 0;
-  this._flag = false;
+  this.adjustFlag = false;
 };
 
 HashTable.prototype.insert = function(k, v) {
   this._size++;
-  if(this._size > (Math.round(.75*this._limit)) && !this._flag) {
+  if(this._size > (Math.round(.75*this._limit)) && !this.adjustFlag) {
     this.adjustStorage(2);
   }
   var index = getIndexBelowMaxForKey(k, this._limit);
@@ -20,6 +20,7 @@ HashTable.prototype.insert = function(k, v) {
   } else {
     for (var i=0; i < contents.length; i++) {
       if (contents[i][0] === k) {
+        this.adjustFlag = true;
         this.remove(k);
       }
     }
@@ -44,7 +45,7 @@ HashTable.prototype.retrieve = function(k) {
 
 HashTable.prototype.remove = function(k) {
   this._size--;
-  if (this._size < (Math.round(.25*this._limit)) && !this._flag) {
+  if (this._size < (Math.round(.25*this._limit)) && !this.adjustFlag) {
     this.adjustStorage(.5);
   }
   var index = getIndexBelowMaxForKey(k, this._limit);
@@ -53,9 +54,6 @@ HashTable.prototype.remove = function(k) {
     for (var i=0; i < contents.length; i++) {
       if (contents[i][0] === k) {
         contents.splice(i, 1);
-        // if (contents[i].length === 0) {
-        //   this._storage.set(index, undefined);
-        // }
       }
     }
   }
@@ -78,7 +76,7 @@ HashTable.prototype.adjustStorage = function(percentage) {
   this._limit = newHashTable._limit;
   this._storage = LimitedArray(this.limit);
   this._size = 0;
-  this._flag = true;
+  this.adjustFlag = true;
   for (var index=0; index < newHashTable._limit; index++) {
     var contents = newHashTable._storage.get(index);
     if (contents !== undefined) {
@@ -88,7 +86,7 @@ HashTable.prototype.adjustStorage = function(percentage) {
     }
   }
   delete newHashTable;
-  this._flag = false;
+  this.adjustFlag = false;
 
 };
 //Double the size of the old hashtable
