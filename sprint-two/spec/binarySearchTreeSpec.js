@@ -37,4 +37,15 @@ describe('binarySearchTree', function() {
     binarySearchTree.depthFirstLog(func);
     expect(array).to.eql([5, 2, 3, 7]);
   });
+
+  it('the last value of left and/or right should return undefined for the last branch', function() {
+    expect(binarySearchTree.left).to.equal(undefined);
+    expect(binarySearchTree.right).to.equal(undefined);
+    binarySearchTree.insert(15);
+    binarySearchTree.insert(3);
+    binarySearchTree.insert(20);
+    binarySearchTree.insert(0);
+    expect(binarySearchTree.right.right.right).to.equal(undefined);
+    expect(binarySearchTree.left.left.left).to.equal(undefined);
+  });
 });

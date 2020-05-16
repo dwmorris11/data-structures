@@ -89,13 +89,10 @@ HashTable.prototype.adjustStorage = function(percentage) {
   this.adjustFlag = false;
 
 };
-//Double the size of the old hashtable
-//insert the contents of the newhastable into the oldhashtable
-//delete newhashtable
-
 /*
  * Complexity: What is the time complexity of the above functions?
+ insert --- O(1)
+ retrieve --- O(1)
+ remove --- O(1)
+ adjustStorage --- O(N^3)
  */
-
-//limitedArray.set(3, 'hi');
-//   limitedArray.get(3); // returns 'hi'

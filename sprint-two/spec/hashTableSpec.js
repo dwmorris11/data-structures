@@ -73,4 +73,12 @@ describe('hashTable', function() {
     hashTable.remove('Mr.');
     expect(hashTable._limit).to.equal(8);
   });
+
+  it ('should double in size when adding a large odd number of values', function() {
+    for (var i = 0; i < 30; i++) {
+      hashTable.insert(i);
+    }
+    expect(hashTable._size).to.equal(29);
+    expect(hashTable._limit).to.equal(64);
+  });
 });
