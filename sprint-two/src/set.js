@@ -24,4 +24,3 @@ setPrototype.remove = function(item) {
 /*
  * Complexity: What is the time complexity of the above functions?
  */
-//Note: Sets should not use up any more space than necessary. Once a value is added to a set, adding it a second time should not increase the size of the set.
